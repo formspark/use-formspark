@@ -30,7 +30,7 @@ export const useFormspark = (args: Args) => {
     });
   };
 
-  return [submit, submitting];
+  return [submit, submitting] as const;
 };
 
 export * from './types/use-formspark';
