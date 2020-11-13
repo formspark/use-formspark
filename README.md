@@ -1,6 +1,6 @@
 # use-formspark
 
-[![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/monorepo/actions?query=workflow%3A%22Continuous+deployment%22)
+[![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/use-formspark/actions?query=workflow%3A%22Continuous+deployment%22)
 
 React hooks for [Formspark](https://formspark.io).
 
