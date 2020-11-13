@@ -24,7 +24,10 @@ const ContactForm = () => {
   const [submit, submitting] = useFormspark('your-form-id');
   const [message, setMessage] = useState("");
   return (
-    <form onSubmit={submit}>
+    <form onSubmit={(e) => {
+        e.preventDefault();
+        submit({ message })
+    }}>
       <textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
