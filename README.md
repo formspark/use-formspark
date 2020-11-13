@@ -1,20 +1,23 @@
 # use-formspark
 
+[![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/monorepo/actions?query=workflow%3A%22Continuous+deployment%22)
+
+React hooks for [Formspark](https://formspark.io).
+
 ## Installation
 
-##### NPM
+```bash
+# NPM
+npm i --save @formspark/use-formspark
 
-> `npm i --save @formspark/use-formspark`
-
-##### Yarn:
-
-> `yarn add @formspark/use-formspark`
+# Yarn 
+yarn add @formspark/use-formspark
+```
 
 ## Usage
 
 ```tsx
 import React, { useState } from "react";
-
 import { useFormspark } from '@formspark/use-formspark';
 
 const ContactForm = () => {
@@ -23,8 +26,6 @@ const ContactForm = () => {
   return (
     <form onSubmit={submit}>
       <textarea
-        name="message"
-        placeholder="Message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
       />

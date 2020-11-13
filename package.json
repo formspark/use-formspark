@@ -1,6 +1,6 @@
 {
   "name": "@formspark/use-formspark",
-  "description": "",
+  "description": "React hooks for Formspark",
   "private": false,
   "version": "0.1.0",
   "author": "Bjorn Krols (https://formspark.io)",
@@ -36,7 +36,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "tsdx lint"
+      "pre-commit": "tsdx lint --fix"
     }
   },
   "prettier": {
