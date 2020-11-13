@@ -38,4 +38,4 @@ const ContactForm = () => {
 };
 ```
 
-Note: do not mistake action url (e.g. `https://submit-form.com/capybara`) and form id (e.g. `capybara`), this package only uses the latter.
+**Note:** do not mistake action url (e.g. `https://submit-form.com/capybara`) and form id (e.g. `capybara`), this package only uses the latter.
