@@ -11,6 +11,7 @@ export const useFormspark = (args: Args) => {
       xhr.open('POST', `https://submit-form.com/${args.formId}`);
 
       xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('Accept', 'application/json');
 
       xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
