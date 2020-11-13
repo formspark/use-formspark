@@ -21,7 +21,7 @@ import React, { useState } from "react";
 import { useFormspark } from '@formspark/use-formspark';
 
 const ContactForm = () => {
-  const [submit, submitting] = useFormspark('your-form-id');
+  const [submit, submitting] = useFormspark("your-form-id");
   const [message, setMessage] = useState("");
   return (
     <form onSubmit={submit}>
