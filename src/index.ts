@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Args, SubmitPayload} from './types/use-formspark';
 
-export const useFormspark = (args: Args): [(payload: SubmitPayload) => Promise<unknown>, boolean] => {
+export const useFormspark = (args: Args) => {
     const [submitting, setSubmitting] = useState(false);
 
     const submit = (payload: SubmitPayload) => {
@@ -31,7 +31,7 @@ export const useFormspark = (args: Args): [(payload: SubmitPayload) => Promise<u
         });
     };
 
-    return [submit, submitting];
+    return [submit, submitting] as const;
 };
 
 export * from './types/use-formspark';
