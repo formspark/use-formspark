@@ -26,9 +26,9 @@ const ContactForm = () => {
   });
   const [message, setMessage] = useState("");
   return (
-    <form onSubmit={(e) => {
+    <form onSubmit={async (e) => {
         e.preventDefault();
-        submit({ message })
+        await submit({ message })
     }}>
       <textarea
         value={message}
