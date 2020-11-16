@@ -18,7 +18,7 @@ yarn add @formspark/use-formspark
 
 ```tsx
 import React, { useState } from "react";
-import { useFormspark } from '@formspark/use-formspark';
+import { useFormspark } from "@formspark/use-formspark";
 
 const ContactForm = () => {
   const [submit, submitting] = useFormspark({
