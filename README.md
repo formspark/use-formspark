@@ -4,6 +4,8 @@
 
 React hooks for [Formspark](https://formspark.io).
 
+Works with React and React native.
+
 ## Installation
 
 ```bash

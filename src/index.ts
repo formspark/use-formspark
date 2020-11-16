@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import { useState } from 'react';
 import { Args, SubmitPayload } from './types/use-formspark';
 
@@ -6,28 +8,29 @@ export const useFormspark = (args: Args) => {
 
   const submit = (payload: SubmitPayload) => {
     return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-
-      xhr.open('POST', `https://submit-form.com/${args.formId}`);
-
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      xhr.setRequestHeader('Accept', 'application/json');
-
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          setSubmitting(false);
-          const status = xhr.status;
-          if (status === 0 || (status >= 200 && status < 400)) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.statusText);
-          }
-        }
+      const url = `https://submit-form.com/${args.formId}`;
+      const method = 'POST';
+      const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       };
-
+      const body = JSON.stringify(payload);
       setSubmitting(true);
-
-      xhr.send(JSON.stringify(payload));
+      fetch(url, {
+        method,
+        headers,
+        body,
+      })
+        .then(response => response.json())
+        .then(json => {
+          resolve(json);
+        })
+        .catch(error => {
+          reject(error);
+        })
+        .finally(() => {
+          setSubmitting(false);
+        });
     });
   };
 

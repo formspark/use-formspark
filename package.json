@@ -45,9 +45,13 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
+  "dependencies": {
+    "whatwg-fetch": "^3.5.0"
+  },
   "devDependencies": {
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@types/whatwg-fetch": "0.0.33",
     "husky": "^4.3.0",
     "react": "^16.13.1",
     "react-dom": "^17.0.1",
