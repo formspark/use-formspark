@@ -1,3 +1,5 @@
+<a href="https://formspark.io" target="_blank" rel="noopener noreferrer"><img width="64" src="https://cdn.formspark.io/images/formspark/logos/formspark.svg" alt="Formspark logo"></a>
+
 # use-formspark
 
 [![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/use-formspark/actions?query=workflow%3A%22Continuous+deployment%22)
@@ -43,3 +45,7 @@ const ContactForm = () => {
 ```
 
 **Note:** do not mistake action url (e.g. `https://submit-form.com/capybara`) and form id (e.g. `capybara`), this package only uses the latter.
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
