@@ -1,12 +1,20 @@
-<a href="https://formspark.io" target="_blank" rel="noopener noreferrer"><img width="64" src="https://cdn.formspark.io/images/formspark/logos/formspark.svg" alt="Formspark logo"></a>
+<p align="center">
+    <a href="https://formspark.io" target="_blank" rel="noopener noreferrer">
+        <img width="64" src="https://cdn.formspark.io/images/formspark/logos/formspark.svg" alt="Formspark logo">
+    </a>
+</p>
 
-# use-formspark
+<h1 align="center">use-formspark</h1>
+
+<p align="center">
+    React hooks for [Formspark](https://formspark.io).
+</p>
+
+<p align="center">
+    Works with React and React native.
+</p>
 
 [![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/use-formspark/actions?query=workflow%3A%22Continuous+deployment%22)
-
-React hooks for [Formspark](https://formspark.io).
-
-Works with React and React native.
 
 ## Installation
 
