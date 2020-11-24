@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://formspark.io" target="_blank" rel="noopener noreferrer">
+    <a href="https://formspark.io">
         <img width="64" src="https://cdn.formspark.io/images/formspark/logos/formspark.svg" alt="Formspark logo">
     </a>
 </p>
@@ -7,7 +7,7 @@
 <h1 align="center">use-formspark</h1>
 
 <p align="center">
-    React hooks for <a href="https://formspark.io" target="_blank" rel="noopener noreferrer">Formspark</a>.
+    React hooks for <a href="https://formspark.io">Formspark</a>.
 </p>
 
 <p align="center">
@@ -20,7 +20,7 @@
 
 ```bash
 # NPM
-npm i --save @formspark/use-formspark
+npm install @formspark/use-formspark
 
 # Yarn 
 yarn add @formspark/use-formspark
