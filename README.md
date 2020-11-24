@@ -7,7 +7,7 @@
 <h1 align="center">use-formspark</h1>
 
 <p align="center">
-    React hooks for [Formspark](https://formspark.io).
+    React hooks for <a href="https://formspark.io" target="_blank" rel="noopener noreferrer">Formspark</a>.
 </p>
 
 <p align="center">
