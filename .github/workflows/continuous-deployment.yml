@@ -26,11 +26,6 @@ jobs:
           restore-keys: |
             nodeModules-
 
-      - name: Bump version
-        uses: phips28/gh-action-bump-version@master
-        with:
-          tag-prefix: ''
-
       - name: Install dependencies
         run: npm install
         env:
@@ -45,6 +40,11 @@ jobs:
         run: npm run build
         env:
           CI: true
+
+      - name: Bump version
+        uses: phips28/gh-action-bump-version@master
+        with:
+          tag-prefix: ''
 
       - name: Publish to NPM
         run: npm publish --access public

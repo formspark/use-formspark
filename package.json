@@ -49,7 +49,7 @@
     "whatwg-fetch": "^3.5.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
+    "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.0",
     "@types/whatwg-fetch": "0.0.33",
     "husky": "^4.3.8",
