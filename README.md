@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-    Works with React and React native.
+    Works with React and React Native.
 </p>
 
 [![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/use-formspark/actions?query=workflow%3A%22Continuous+deployment%22)
