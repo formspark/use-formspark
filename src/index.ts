@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import { useState } from 'react';
 import { Args, SubmitPayload } from './types/use-formspark';
 
-const BASE_URL = "https://submit-form.com";
+const BASE_URL = 'https://submit-form.com';
 
 export const useFormspark = (args: Args) => {
   const [submitting, setSubmitting] = useState(false);
