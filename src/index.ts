@@ -3,12 +3,14 @@ import 'whatwg-fetch';
 import { useState } from 'react';
 import { Args, SubmitPayload } from './types/use-formspark';
 
+const BASE_URL = "https://submit-form.com";
+
 export const useFormspark = (args: Args) => {
   const [submitting, setSubmitting] = useState(false);
 
   const submit = (payload: SubmitPayload) => {
     return new Promise((resolve, reject) => {
-      const url = `https://submit-form.com/${args.formId}`;
+      const url = `${BASE_URL}/${args.formId}`;
       const method = 'POST';
       const headers = {
         Accept: 'application/json',
