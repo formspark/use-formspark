@@ -29,15 +29,10 @@
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
     "build": "tsdx build",
     "lint": "tsdx lint src",
-    "prepare": "tsdx build"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint src --fix"
-    }
+    "prepare": "husky install && tsdx build ",
+    "start": "tsdx watch"
   },
   "prettier": {
     "printWidth": 80,
