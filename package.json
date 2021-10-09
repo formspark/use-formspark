@@ -49,17 +49,17 @@
     "whatwg-fetch": "^3.6.2"
   },
   "devDependencies": {
-    "@types/react": "^17.0.14",
+    "@types/react": "^17.0.27",
     "@types/react-dom": "^17.0.9",
     "@types/whatwg-fetch": "0.0.33",
-    "husky": "^7.0.1",
+    "husky": "^7.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "tsdx": "^0.14.1",
-    "tslib": "^2.3.0",
-    "typescript": "^4.3.5"
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^17.0.0"
   }
 }
