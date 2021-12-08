@@ -12,20 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node 12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-          registry-url: https://registry.npmjs.org
-
-      - name: Use cached node_modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: nodeModules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            nodeModules-
-
       - name: Install dependencies
         run: npm install
         env:
