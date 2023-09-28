@@ -10,7 +10,7 @@ export const useFormspark = (args: Args) => {
 
   const submit = (payload: SubmitPayload) => {
     return new Promise((resolve, reject) => {
-      const url = `${BASE_URL}/${args.formId}`;
+      const url = `${args.formUrl ? args.formUrl : BASE_URL}/${args.formId}`;
       const method = 'POST';
       const headers = {
         Accept: 'application/json',
