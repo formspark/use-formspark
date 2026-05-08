@@ -1,15 +1,13 @@
-name: Continuous deployment
+name: Check
 
 on:
-  push:
+  pull_request:
     branches:
       - master
-
-permissions:
-  contents: write
+  workflow_call:
 
 jobs:
-  deploy:
+  check:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -18,7 +16,6 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: '22.x'
-          registry-url: 'https://registry.npmjs.org'
           cache: 'npm'
 
       - name: Install dependencies
@@ -32,13 +29,3 @@ jobs:
 
       - name: Test
         run: npm test
-
-      - name: Bump version
-        uses: phips28/gh-action-bump-version@v11.0.7
-        with:
-          tag-prefix: ''
-
-      - name: Publish to NPM
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

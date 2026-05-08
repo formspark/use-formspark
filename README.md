@@ -14,7 +14,7 @@
     Works with React and React Native.
 </p>
 
-[![Continuous deployment](https://github.com/formspark/use-formspark/workflows/Continuous%20deployment/badge.svg)](https://github.com/formspark/use-formspark/actions?query=workflow%3A%22Continuous+deployment%22)
+[![Deploy](https://github.com/formspark/use-formspark/workflows/Deploy/badge.svg)](https://github.com/formspark/use-formspark/actions?query=workflow%3ADeploy)
 
 ## Installation
 
