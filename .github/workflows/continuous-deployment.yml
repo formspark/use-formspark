@@ -12,12 +12,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v6
         with:
@@ -33,39 +29,12 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Configure git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-      - name: Determine bump type
-        id: bump
-        run: |
-          MSG=$(git log -1 --pretty=%B)
-          if echo "$MSG" | grep -qE '#major|BREAKING CHANGE'; then
-            echo "type=major" >> "$GITHUB_OUTPUT"
-          elif echo "$MSG" | grep -qE '#minor|^feat(\(|:)'; then
-            echo "type=minor" >> "$GITHUB_OUTPUT"
-          else
-            echo "type=patch" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Bump version
-        id: version
-        run: |
-          NEW_VERSION=$(npm version ${{ steps.bump.outputs.type }} -m "ci: version bump to %s [skip ci]")
-          echo "tag=$NEW_VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: Push commit and tag
-        run: git push --follow-tags
+        uses: phips28/gh-action-bump-version@v11.0.7
+        with:
+          tag-prefix: ''
 
       - name: Publish to NPM
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.version.outputs.tag }}
-          generate_release_notes: true
