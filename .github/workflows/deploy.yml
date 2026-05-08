@@ -1,37 +1,38 @@
-name: Continuous deployment
+name: Deploy
 
 on:
   push:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
+  check:
+    uses: ./.github/workflows/check.yml
+
   deploy:
+    needs: check
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v6
         with:
-          node-version: '16.x'
+          node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-        env:
-          CI: true
-
       - name: Build
         run: npm run build
-        env:
-          CI: true
 
       - name: Bump version
-        uses: phips28/gh-action-bump-version@master
+        uses: phips28/gh-action-bump-version@v11.0.7
         with:
           tag-prefix: ''
 
