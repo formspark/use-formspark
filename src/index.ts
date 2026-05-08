@@ -33,7 +33,13 @@ export const useFormspark = ({ formId }: Args) => {
         });
 
         if (!response.ok) {
-          const body = await response.json().catch(() => undefined);
+          const text = await response.text().catch(() => '');
+          let body: unknown = text;
+          try {
+            body = JSON.parse(text);
+          } catch {
+            // not JSON — keep the raw text
+          }
           throw new FormsparkError(response.status, body);
         }
 
