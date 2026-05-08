@@ -2,7 +2,7 @@
   "name": "@formspark/use-formspark",
   "description": "React hooks for Formspark",
   "private": false,
-  "version": "1.0.0",
+  "version": "1.0.0-rc.0",
   "author": "Bjorn Krols (https://formspark.io)",
   "license": "MIT",
   "keywords": [
