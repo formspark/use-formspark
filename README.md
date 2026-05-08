@@ -22,7 +22,7 @@
 # NPM
 npm install @formspark/use-formspark
 
-# Yarn 
+# Yarn
 yarn add @formspark/use-formspark
 ```
 
@@ -40,7 +40,7 @@ const ContactForm = () => {
   return (
     <form onSubmit={async (e) => {
         e.preventDefault();
-        await submit({ message })
+        await submit({ message });
     }}>
       <textarea
         value={message}
@@ -52,7 +52,23 @@ const ContactForm = () => {
 };
 ```
 
-**Note:** do not mistake action url (e.g. `https://submit-form.com/capybara`) and form id (e.g. `capybara`), this package only uses the latter.
+**Note:** don't confuse the form's action URL (e.g. `https://submit-form.com/capybara`) with the form ID (e.g. `capybara`) — this package only uses the latter.
+
+## Error handling
+
+`submit` throws a `FormsparkError` when the server responds with a non-2xx status. The error carries the HTTP status and parsed response body.
+
+```ts
+import { useFormspark, FormsparkError } from "@formspark/use-formspark";
+
+try {
+  await submit({ message });
+} catch (error) {
+  if (error instanceof FormsparkError) {
+    console.error(error.status, error.body);
+  }
+}
+```
 
 ## License
 
