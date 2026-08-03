@@ -26,6 +26,8 @@ npm install @formspark/use-formspark
 yarn add @formspark/use-formspark
 ```
 
+Requires React 18 or 19 and Node.js 18 or newer.
+
 ## Usage
 
 ```tsx
@@ -52,11 +54,11 @@ const ContactForm = () => {
 };
 ```
 
-**Note:** don't confuse the form's action URL (e.g. `https://submit-form.com/capybara`) with the form ID (e.g. `capybara`) — this package only uses the latter.
+**Note:** don't confuse the form's action URL (e.g. `https://submit-form.com/capybara`) with the form ID (e.g. `capybara`). This package only uses the latter.
 
 ## Error handling
 
-`submit` throws a `FormsparkError` when the server responds with a non-2xx status. The error carries the HTTP status and parsed response body.
+`submit` throws a `FormsparkError` when the server responds with a non-2xx status. The error carries the HTTP status and the response body, parsed as JSON when possible and kept as raw text otherwise.
 
 ```ts
 import { useFormspark, FormsparkError } from "@formspark/use-formspark";

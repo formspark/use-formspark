@@ -38,7 +38,7 @@ export const useFormspark = ({ formId }: Args) => {
           try {
             body = JSON.parse(text);
           } catch {
-            // not JSON — keep the raw text
+            // not JSON, keep the raw text
           }
           throw new FormsparkError(response.status, body);
         }
