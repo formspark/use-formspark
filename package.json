@@ -47,15 +47,18 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.0.5",
-    "happy-dom": "^20.11.1",
+    "happy-dom": "^21.0.4",
     "husky": "^9.1.7",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tsup": "^8.3.5",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.10"
+    "vitest": "^4.1.12"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
   }
 }
