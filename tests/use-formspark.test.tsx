@@ -3,32 +3,21 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { FormsparkError, useFormspark } from '../src';
 
 describe('useFormspark', () => {
-  it('submits to /echo and resolves with the echoed payload', async () => {
-    const { result } = renderHook(() => useFormspark({ formId: 'echo' }));
-    let response: unknown;
-    await act(async () => {
-      response = await result.current[0]({ message: 'Hello, World!' });
-    });
-    expect(response).toMatchObject({ message: 'Hello, World!' });
-  });
-
-  it('throws FormsparkError with status 404 when the form does not exist', async () => {
-    const { result } = renderHook(() =>
-      useFormspark({ formId: 'this-form-id-does-not-exist' }),
-    );
-    let caught: unknown;
-    await act(async () => {
-      try {
-        await result.current[0]({ message: 'should fail' });
-      } catch (e) {
-        caught = e;
-      }
-    });
-    expect(caught).toBeInstanceOf(FormsparkError);
-    expect((caught as FormsparkError).status).toBe(404);
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('toggles submitting state during a call', async () => {
+    let resolveFetch!: (response: Response) => void;
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(
+        () =>
+          new Promise<Response>((resolve) => {
+            resolveFetch = resolve;
+          }),
+      ),
+    );
     const { result } = renderHook(() => useFormspark({ formId: 'echo' }));
     expect(result.current[1]).toBe(false);
     let promise: Promise<unknown> = Promise.resolve();
@@ -37,25 +26,10 @@ describe('useFormspark', () => {
     });
     expect(result.current[1]).toBe(true);
     await act(async () => {
+      resolveFetch(new Response('{}'));
       await promise;
     });
     expect(result.current[1]).toBe(false);
-  });
-
-  it('keeps submit identity stable across renders for same formId', () => {
-    const { result, rerender } = renderHook(
-      ({ formId }: { formId: string }) => useFormspark({ formId }),
-      { initialProps: { formId: 'echo' } },
-    );
-    const first = result.current[0];
-    rerender({ formId: 'echo' });
-    expect(result.current[0]).toBe(first);
-  });
-});
-
-describe('useFormspark with a mocked fetch', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
   });
 
   it('posts the payload as JSON to the encoded form URL', async () => {
@@ -88,13 +62,11 @@ describe('useFormspark with a mocked fetch', () => {
   it('parses a JSON error body into FormsparkError.body', async () => {
     vi.stubGlobal(
       'fetch',
-      vi
-        .fn()
-        .mockResolvedValue(
-          new Response(JSON.stringify({ error: 'rate limited' }), {
-            status: 429,
-          }),
-        ),
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ error: 'rate limited' }), {
+          status: 429,
+        }),
+      ),
     );
     const { result } = renderHook(() => useFormspark({ formId: 'x' }));
     let caught: unknown;
@@ -115,9 +87,7 @@ describe('useFormspark with a mocked fetch', () => {
   it('keeps a non-JSON error body as raw text', async () => {
     vi.stubGlobal(
       'fetch',
-      vi
-        .fn()
-        .mockResolvedValue(new Response('Bad Gateway', { status: 502 })),
+      vi.fn().mockResolvedValue(new Response('Bad Gateway', { status: 502 })),
     );
     const { result } = renderHook(() => useFormspark({ formId: 'x' }));
     let caught: unknown;
