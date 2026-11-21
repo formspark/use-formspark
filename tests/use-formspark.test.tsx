@@ -8,8 +8,10 @@ describe('useFormspark', () => {
   });
 
   it('toggles submitting state during a call', async () => {
-    const { promise: response, resolve: resolveFetch } =
-      Promise.withResolvers<Response>();
+    let resolveFetch: ((value: Response) => void) | undefined;
+    const response = new Promise<Response>((resolve) => {
+      resolveFetch = resolve;
+    });
     vi.stubGlobal(
       'fetch',
       vi.fn(() => response),
@@ -22,6 +24,7 @@ describe('useFormspark', () => {
     });
     expect(result.current[1]).toBe(true);
     await act(async () => {
+      if (!resolveFetch) throw new Error('Expected a pending request');
       resolveFetch(new Response('{}'));
       await promise;
     });
