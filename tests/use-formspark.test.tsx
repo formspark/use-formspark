@@ -8,15 +8,11 @@ describe('useFormspark', () => {
   });
 
   it('toggles submitting state during a call', async () => {
-    let resolveFetch!: (response: Response) => void;
+    const { promise: response, resolve: resolveFetch } =
+      Promise.withResolvers<Response>();
     vi.stubGlobal(
       'fetch',
-      vi.fn(
-        () =>
-          new Promise<Response>((resolve) => {
-            resolveFetch = resolve;
-          }),
-      ),
+      vi.fn(() => response),
     );
     const { result } = renderHook(() => useFormspark({ formId: 'echo' }));
     expect(result.current[1]).toBe(false);
@@ -78,7 +74,8 @@ describe('useFormspark', () => {
       }
     });
     expect(caught).toBeInstanceOf(FormsparkError);
-    const error = caught as FormsparkError;
+    if (!(caught instanceof FormsparkError)) throw caught;
+    const error = caught;
     expect(error.status).toBe(429);
     expect(error.body).toEqual({ error: 'rate limited' });
     expect(error.message).toBe('Formspark responded with 429');
@@ -99,7 +96,8 @@ describe('useFormspark', () => {
       }
     });
     expect(caught).toBeInstanceOf(FormsparkError);
-    expect((caught as FormsparkError).body).toBe('Bad Gateway');
+    if (!(caught instanceof FormsparkError)) throw caught;
+    expect(caught.body).toBe('Bad Gateway');
   });
 
   it('resets submitting to false after a failed submit', async () => {
@@ -118,5 +116,41 @@ describe('useFormspark', () => {
     });
     expect(caught).toBeInstanceOf(TypeError);
     expect(result.current[1]).toBe(false);
+  });
+
+  it('resets submitting after an invalid success response and permits a retry', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(new Response('invalid json'))
+      .mockResolvedValueOnce(new Response('{"ok":true}'));
+    vi.stubGlobal('fetch', fetchMock);
+    const { result } = renderHook(() => useFormspark({ formId: 'x' }));
+    await act(async () => {
+      await expect(result.current[0]({})).rejects.toBeInstanceOf(SyntaxError);
+    });
+    expect(result.current[1]).toBe(false);
+    await act(async () => {
+      await expect(result.current[0]({})).resolves.toEqual({ ok: true });
+    });
+    expect(result.current[1]).toBe(false);
+  });
+
+  it('submits to the new form after its id changes', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockImplementation(async () => new Response('{}'));
+    vi.stubGlobal('fetch', fetchMock);
+    const { result, rerender } = renderHook(
+      ({ formId }) => useFormspark({ formId }),
+      { initialProps: { formId: 'first' } },
+    );
+    rerender({ formId: 'second' });
+    await act(async () => {
+      await result.current[0]({});
+    });
+    expect(fetchMock).toHaveBeenCalledWith(
+      'https://submit-form.com/second',
+      expect.objectContaining({ method: 'POST' }),
+    );
   });
 });
